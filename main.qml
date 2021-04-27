@@ -10,19 +10,13 @@ Window {
     title: qsTr("Hello World")
 
     ComboBox {
+        id:cbDevName
         width: 150
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 0
         anchors.topMargin: 0
-        model: ListModel {
-            ListElement {
-                devName: "eth0"
-            }
-            ListElement {
-                devName: "eth1"
-            }
-        }
+        model: gui.devName
     }
 
     Button {
@@ -31,13 +25,15 @@ Window {
         anchors.top: parent.top
         anchors.leftMargin: 155
         anchors.topMargin: 0
+        onClicked: gui.open(cbDevName.currentValue)
     }
 
     TextField {
         id: macSrc
-        width: 110
+        x: 270
+        width: 120
         height: 40
-        text: qsTr("FF:FF:FF:FF:FF:FF")
+        text: gui.macSrc
         anchors.left: parent.left
         anchors.top: parent.top
         font.pixelSize: 12
@@ -99,20 +95,23 @@ Window {
     }
 
     TextField {
+        id: msg
         anchors.left: parent.left
         anchors.bottom: parent.bottom
-        anchors.rightMargin: 205
+        anchors.rightMargin: 210
         anchors.leftMargin: 10
         anchors.bottomMargin: 10
         anchors.right: parent.right
-
+        validator: RegExpValidator {
+            regExp: /[0-9A-Fa-f]+/
+        }
     }
 
     TextField {
         id: macDst
-        width: 110
+        width: 120
         height: 40
-        text: qsTr("00:FF:FF:FF:FF:EE")
+        text: gui.macDst
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         font.pixelSize: 12
@@ -130,6 +129,7 @@ Window {
         anchors.bottom: parent.bottom
         anchors.rightMargin: 10
         anchors.bottomMargin: 10
+        onClicked: gui.sendData(macSrc.text, macDst.text, msg.text)
     }
 
 }
