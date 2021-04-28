@@ -1,8 +1,15 @@
 #include "guimodel.h"
 #include <QDebug>
+#include "NativeFunctions.h"
 
 GuiModel::GuiModel(QObject *parent) : QObject(parent)
 {
+    auto res = getEthernetInterfaces();
+
+    for (auto it = res.begin(); it != res.end(); it++) {
+        qDebug() << "If " << *it;
+    }
+
     m_macDst = "FF:00:00:00:00:FF";
     m_macSrc = "FF:FF:AA:AA:FF:FF";
     m_devName.append("eth0");
