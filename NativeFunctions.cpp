@@ -11,5 +11,6 @@ QSet<QString> getEthernetInterfaces() {
         ifNames.insert(QString::fromUtf8(curr->ifa_name));
         curr = curr->ifa_next;
     }
+    freeifaddrs(ifAddrs);
     return ifNames;
 }
