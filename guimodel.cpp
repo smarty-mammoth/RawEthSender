@@ -11,7 +11,7 @@ GuiModel::GuiModel(QObject *parent) : QObject(parent)
     }
 
     m_macDst = "FF:00:00:00:00:FF";
-    m_macSrc = "FF:FF:AA:AA:FF:FF";
+    m_macSrc = getMacAddr("eth0");
 }
 
 QString GuiModel::getMacSrc() const
